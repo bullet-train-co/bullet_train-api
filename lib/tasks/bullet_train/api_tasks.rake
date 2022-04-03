@@ -10,7 +10,7 @@ namespace :bullet_train_api do
       ARGV.push(argument)
     end
 
-    # BulletTrain::SuperScaffolding::Runner.new.run
+    BulletTrain::Api::Clients.new.generate
     puts ARGV
   end
 
