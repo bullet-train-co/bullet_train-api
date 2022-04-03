@@ -17,6 +17,7 @@ gem "wine_bouncer", github: "bullet-train-co/wine_bouncer"
 gem "jsonapi-serializer"
 
 gem "bullet_train"
+gem "bullet_train-super_scaffolding"
 
 # Start debugger with binding.b [https://github.com/ruby/debug]
 # gem "debug", ">= 1.0.0"
