@@ -3,15 +3,8 @@ require 'rails/tasks'
 
 namespace :bullet_train_api do
   desc 'Generate API clients'
-  task :generate_clients, [:all_options] => :environment do |t, arguments|
-    ARGV.pop while ARGV.any?
-
-    arguments[:all_options]&.split&.each do |argument|
-      ARGV.push(argument)
-    end
-
-    BulletTrain::Api::Clients.new.generate
-    puts ARGV
+  task :generate_clients => :environment do |t, arguments|
+    BulletTrain::Api::Clients.new(Rails.application.class.module_parent_name).generate
   end
 
   desc 'Publish API clients'
