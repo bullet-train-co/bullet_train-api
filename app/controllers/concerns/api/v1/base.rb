@@ -15,7 +15,9 @@ module Api::V1::Base
     end
 
     BulletTrain::Api.endpoints.each do |endpoint_class|
-      mount endpoint_class.constantize
+      unless scaffolding_things_disabled? && endpoint_class.match?(/Api::V1::Scaffolding/)
+        mount endpoint_class.constantize
+      end
     end
 
     after_validation do
