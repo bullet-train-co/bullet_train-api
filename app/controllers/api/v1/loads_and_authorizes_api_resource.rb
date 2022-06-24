@@ -24,7 +24,7 @@ module Api::V1::LoadsAndAuthorizesApiResource
           resource_type = api_resource_param_id.present? ? :single_record : :collection
           resources = api_resource_class.accessible_by(current_ability, permission)
 
-          # If there no other ids (i.e. if we're doing a `show` action),
+          # If there are no other ids (i.e. if we're doing a `show` action),
           # we simply get the original resources array.
           all_accessible_api_resources = resources.where(api_resource_params_other_ids)
           raise CanCan::AccessDenied if all_accessible_api_resources.empty?
