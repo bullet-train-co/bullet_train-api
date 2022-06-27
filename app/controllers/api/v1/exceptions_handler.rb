@@ -38,6 +38,8 @@ module Api::V1::ExceptionsHandler
             "Access-Control-Allow-Origin" => "*",
             "Access-Control-Request-Method" => "*"
           }).finish
+
+          raise error
         end
       end
 
