@@ -5,6 +5,7 @@ module Api::V1::Defaults
     before do
       header["Access-Control-Allow-Origin"] = "*"
       header["Access-Control-Request-Method"] = "*"
+      Current.context = :api
     end
 
     helpers do

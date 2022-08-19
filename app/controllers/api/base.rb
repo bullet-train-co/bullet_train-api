@@ -23,9 +23,4 @@ class Api::Base < Grape::API
       description: I18n.t("application.description")
     },
     mount_path: "/docs/swagger"
-
-  # TODO Reintroduce this once we've got `context` in current attributes.
-  # before do
-  #   Current.context = :api
-  # end
 end
