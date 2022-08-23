@@ -17,13 +17,13 @@ module Api
   def self.serializer
     path = find_path
     version_in_path = path.scan(/\/v\d*\//).first
-    version = version_in_path.gsub(/\//, "").upcase
+    version = version_in_path.delete("/").upcase
     version ||= "V1"
     "Api::#{version}::#{Api.topic.classify}Serializer"
   end
 
   def self.current_version
-    self.topic
+    topic
   end
 
   def self.status(code)
@@ -41,9 +41,9 @@ module Api
   def self.find_path
     caller.find do |path|
       (path.include?("controllers/api") || path.include?("app/controllers/concerns/api")) &&
-      !path.include?("app/controllers/api.rb") &&
-      !path.include?("app/controllers/api/v1/root.rb") &&
-      !path.include?("app/controllers/api/base.rb")
+        !path.include?("app/controllers/api.rb") &&
+        !path.include?("app/controllers/api/v1/root.rb") &&
+        !path.include?("app/controllers/api/base.rb")
     end
   end
 
