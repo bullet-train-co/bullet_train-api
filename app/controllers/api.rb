@@ -6,7 +6,7 @@
 
 module Api
   def self.topic
-    path = caller.find { |path| (path.include?("controllers/api") || path.include?("app/controllers/concerns/api")) && !path.include?("app/controllers/api.rb") && !path.include?("app/controllers/api/v1/root.rb") && !path.include?("app/controllers/api/base.rb") }
+    path = find_path
     if path.include?("controllers/api")
       path.split(/\/app\/controllers\/api\/v\d+\//).last.split("_endpoint.").first
     elsif path.include?("app/controllers/concerns/api")
@@ -15,8 +15,15 @@ module Api
   end
 
   def self.serializer
-    # TODO This could be smart enough to figure out if `V1` is accurate, as well.
-    "Api::V1::#{Api.topic.classify}Serializer"
+    path = find_path
+    version_in_path = path.scan(/\/v\d*\//).first
+    version = version_in_path.gsub(/\//, "").upcase
+    version ||= "V1"
+    "Api::#{version}::#{Api.topic.classify}Serializer"
+  end
+
+  def self.current_version
+    self.topic
   end
 
   def self.status(code)
@@ -29,6 +36,15 @@ module Api
 
   def self.heading(path)
     I18n.t("#{topic}.api.fields.#{path}.heading")
+  end
+
+  def self.find_path
+    caller.find do |path|
+      (path.include?("controllers/api") || path.include?("app/controllers/concerns/api")) &&
+      !path.include?("app/controllers/api.rb") &&
+      !path.include?("app/controllers/api/v1/root.rb") &&
+      !path.include?("app/controllers/api/base.rb")
+    end
   end
 
   def self.show_desc
