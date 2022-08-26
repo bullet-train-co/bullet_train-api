@@ -3,7 +3,7 @@ class Api::V1::MeEndpoint < Api::V1::Root
     desc Api.title(:show), &Api.show_desc
     oauth2
     get do
-      render current_user, include: [:teams, :memberships], serializer: "Api::V1::UserSerializer", adapter: :attributes
+      render current_user, include: [:teams, :memberships], adapter: :attributes
     end
   end
 end
