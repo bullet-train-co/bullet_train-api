@@ -7,9 +7,7 @@ By default, Bullet Train will build out a "V1" version of your API. The version 
 If a change to the API would break the established contract, we want to bump the API version number so we can differentiate between developers building against the latest version of the API (e.g. "V2") and developers who wrote code against the earlier version of the API (e.g. "V1"). This allows us the opportunity to ensure that older versions of the API continue to work as previously expected by the earlier developers.
 
 ## When should you take advantage of API versioning?
-You want to bump API versions as sparingly as possible. Even with all the tooling Bullet Train provides, maintaining backwards compatibility of older API versions comes at an ongoing cost.
-
-Generally speaking, you should only bump your API version when a customer is already using an API endpoint and you're making changes to the structure of your domain model that are not strictly additive.
+You want to bump API versions as sparingly as possible. Even with all the tooling Bullet Train provides, maintaining backwards compatibility of older API versions comes at an ongoing cost. Generally speaking, you should only bump your API version when a customer is already using an API endpoint and you're making changes to the structure of your domain model that are not strictly additive.
 
 Importantly, if the changes you're making to your domain model are only additive, you don't need to bump your API version. Users shouldn't care that you're adding new attributes or new endpoints to your API, just as long as the ones they're already using don't change in a way that is breaking for them.
 
