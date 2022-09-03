@@ -4,9 +4,6 @@ We believe every SaaS application should have an API and [webhooks](https://gith
 ## Background
 Vanilla Rails scaffolding actually provides simple API functionality out-of-the-box: You can append `.json` to the URL of any scaffold and it will render a JSON representation instead of an HTML view. This functionality continues to work in Bullet Train, but our API implementation also builds on this simple baseline using the same tools with additional organization and some new patterns. 
 
-## Separating Account and API Controllers
-Where vanilla Rails uses a single controller in `app/controllers` for both in-browser and API requests, Bullet Train splits these into two separate controllers, one in `app/controllers/account` and another in `app/controllers/api/v1`, although a lot of logic is shared between the two.
-
 ## Goals
 
 ### Zero-Effort API
@@ -25,6 +22,7 @@ In the same way we've adopted [Devise](https://github.com/heartcombo/devise) for
 Because our API endpoints are standard Rails controllers, they're able to leverage the exact same [permissions definitions and authorization logic](https://github.com/bullet-train-co/bullet_train-base/blob/main/docs/permissions.md) as our account controllers.
 
 ## Structure
+Where vanilla Rails uses a single controller in `app/controllers` for both in-browser and API requests, Bullet Train splits these into two separate controllers, one in `app/controllers/account` and another in `app/controllers/api/v1`, although a lot of logic is shared between the two.
 
 API endpoints are defined in three parts:
 
@@ -32,7 +30,7 @@ API endpoints are defined in three parts:
 2. Controllers are defined in the `app/controllers/api/v1` directory.
 3. Jbuilder views are defined in the `app/views/api/v1` directory.
 
-## "API First" and Support for Account Controllers
+## "API First" and Supporting Account Controllers
 As mentioned earlier, there is a lot of shared logic between account and API controllers. Importantly, there are a couple of responsbilities that are implemented "API first" in API controllers and then utilized by account controllers.
 
 ### Strong Parameters
