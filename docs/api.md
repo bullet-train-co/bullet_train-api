@@ -36,7 +36,7 @@ As mentioned earlier, there is a lot of shared logic between account and API con
 ### Strong Parameters
 The primary definition of Strong Parameters for a given resource is defined in the most recent version of the API controller and included from there by the account controller. In account controllers, where you might expect to see a Strong Parameters definition, you'll see the following instead:
 
-```
+```ruby
 include strong_parameters_from_api
 ```
 
@@ -46,7 +46,7 @@ include strong_parameters_from_api
 
 In Bullet Train, when you append `.json` to an account URL, the account controller doesn't actually have any `.json.jbuilder` templates in its view directory within `app/views/account`. Instead, by default the controller is configured to delegate the JSON rendering to the corresponding Jbuilder templates in the most recent version of the API, like so:
 
-```
+```ruby
 # GET /account/projects/:id or /account/projects/:id.json
 def show
   delegate_json_to_api
