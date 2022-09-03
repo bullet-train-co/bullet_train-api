@@ -25,7 +25,7 @@ By default, the following components in your API are created in versioned namesp
 
 ⚠️ You must do this _before_ making the breaking changes to your API.
 
-If you're in a situation where you know you need to bump your API version to help lock-in backward compatibility of an earlier version of your API, you can simply run:
+If you're in a situation where you know you need to bump your API version to help lock-in a backward compatible version of your API, you can simply run:
 
 ```
 rake bullet_train:api:bump_version
