@@ -42,6 +42,22 @@ include strong_parameters_from_api
 
 > This may feel counter-intuitive to some developers and you might wonder why we don't flip this around and have the primary definition in the account controller and have the API controller delegate to it. The answer is a pragmatic one: creating and maintaining the defintion of Strong Paramters in the API controller means it gets automatically frozen in time should you ever need to [bump your API version number](/api/docs/versioning.md). We probably _could_ accomplish this if things were the other way around, but it wouldn't happen automatically.
 
+If by chance there are additional attributes that should be permitted or specific logic that needs to be run as part of the account controller (or inversely, only in the API controller), you can specify that in the controller like so:
+
+```ruby
+def permitted_fields
+  [:some_specific_attribute]
+end
+
+def permitted_arrays
+  {some_collection: []}
+end
+
+def process_params(strong_params)
+  assign_checkboxes(strong_params, :some_checkboxes)
+end
+```
+
 ### Delegating `.json` View Rendering on Account Controllers
 
 In Bullet Train, when you append `.json` to an account URL, the account controller doesn't actually have any `.json.jbuilder` templates in its view directory within `app/views/account`. Instead, by default the controller is configured to delegate the JSON rendering to the corresponding Jbuilder templates in the most recent version of the API, like so:
@@ -53,8 +69,8 @@ def show
 end
 ```
 
-# Advanced Topics
+## Advanced Topics
  - [API Versioning](/docs/api/versioning.md)
 
-## Other Serializers and API Frameworks
+## A Note About Other Serializers and API Frameworks
 In early versions of Bullet Train we made the decision to adopt a specific serialization library, [ActiveModelSerializers](https://github.com/rails-api/active_model_serializers) and in subsequent versions we went as far as to adopt an entire third-party framework ([Grape](https://github.com/ruby-grape/grape)) and a third-party API specification ([JSON:API](https://jsonapi.org)). We now consider it out-of-scope to try and make such decisions on behalf of developers. Support for them in Bullet Train applications and in Super Scaffolding could be created by third-parties.
