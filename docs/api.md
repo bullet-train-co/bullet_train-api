@@ -34,13 +34,13 @@ API endpoints are defined in three parts:
 As mentioned earlier, there is a lot of shared logic between account and API controllers. Importantly, there are a couple of responsbilities that are implemented "API first" in API controllers and then utilized by account controllers.
 
 ### Strong Parameters
-The primary definition of Strong Parameters for a given resource is defined in the most recent version of the API controller and included by the account controller. In account controllers where you might expect to see a Strong Parameters definition, you'll see the following instead:
+The primary definition of Strong Parameters for a given resource is defined in the most recent version of the API controller and included from there by the account controller. In account controllers, where you might expect to see a Strong Parameters definition, you'll see the following instead:
 
 ```
 include strong_parameters_from_api
 ```
 
-> This may feel counter-intuitive to some developers and you might wonder why we don't flip this around and have the primary definition in the account controller and have the API controller delegate to it. The answer is a pragmatic one: creating and maintaining the defintion of Strong Paramters in the API controller means it gets automatically frozen in time should you ever need to bump your API version number. You _could_ probably accomplish this if things were the other way around, but it wouldn't happen automatically.
+> This may feel counter-intuitive to some developers and you might wonder why we don't flip this around and have the primary definition in the account controller and have the API controller delegate to it. The answer is a pragmatic one: creating and maintaining the defintion of Strong Paramters in the API controller means it gets automatically frozen in time should you ever need to [bump your API version number](/api/docs/versioning.md). You _could_ probably accomplish this if things were the other way around, but it wouldn't happen automatically.
 
 ### Delegating `.json` View Rendering on Account Controllers
 
