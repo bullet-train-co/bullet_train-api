@@ -40,7 +40,7 @@ The primary definition of Strong Parameters for a given resource is defined in t
 include strong_parameters_from_api
 ```
 
-> This may feel counter-intuitive to some developers and you might wonder why we don't flip this around and have the primary definition in the account controller and have the API controller delegate to it. The answer is a pragmatic one: creating and maintaining the defintion of Strong Paramters in the API controller means it gets automatically frozen in time should you ever need to [bump your API version number](/api/docs/versioning.md). You _could_ probably accomplish this if things were the other way around, but it wouldn't happen automatically.
+> This may feel counter-intuitive to some developers and you might wonder why we don't flip this around and have the primary definition in the account controller and have the API controller delegate to it. The answer is a pragmatic one: creating and maintaining the defintion of Strong Paramters in the API controller means it gets automatically frozen in time should you ever need to [bump your API version number](/api/docs/versioning.md). We probably _could_ accomplish this if things were the other way around, but it wouldn't happen automatically.
 
 ### Delegating `.json` View Rendering on Account Controllers
 
