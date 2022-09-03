@@ -13,7 +13,7 @@ Where vanilla Rails uses a single controller in `app/controllers` for both in-br
 As with vanilla Rails scaffolding, Super Scaffolding automatically generates your API as you scaffold new models, and unlike vanilla Rails scaffolding, it will automatically keep it up-to-date as you scaffold additional attributes onto your models.
 
 ### Versioning by Default
-By separating out and versioning API controllers, views, routes, and tests, Bullet Train provides a methodology and tooling to help ensure that once users have built against your API, changes in the structure of your domain model and API don't unexpectedly break existing integrations.
+By separating out and versioning API controllers, views, routes, and tests, Bullet Train provides [a methodology and tooling](/docs/api/versioning.md) to help ensure that once users have built against your API, changes in the structure of your domain model and API don't unexpectedly break existing integrations. You can [read more about API versioning](/docs/api/versioning.md).
 
 ### Standard Rails Tooling
 APIs are built using standard Rails tools like `ActiveController::API`, [Strong Parameters](https://api.rubyonrails.org/classes/ActionController/StrongParameters.html), `config/routes.rb`, and [Jbuilder](https://github.com/rails/jbuilder). Maintaining API endpoints doesn't require special knowledge and feels like regular Rails development.
@@ -33,7 +33,7 @@ API endpoints are defined in three parts:
 3. Jbuilder views are defined in the `app/views/api/v1` directory.
 
 ## "API First" and Support for Account Controllers
-As mentioned earlier, there is a lot of shared logic between account and API controllers. Importantly, there are a couple of important responsbilities that are implemented "API first" and then utilized by account controllers.
+As mentioned earlier, there is a lot of shared logic between account and API controllers. Importantly, there are a couple of responsbilities that are implemented "API first" in API controllers and then utilized by account controllers.
 
 ### Strong Parameters
 The primary definition of Strong Parameters for a given resource is defined in the most recent version of the API controller and included by the account controller. In account controllers where you might expect to see a Strong Parameters definition, you'll see the following instead:
@@ -54,6 +54,9 @@ def show
   delegate_json_to_api
 end
 ```
+
+# Advanced Topics
+ - [API Versioning](/docs/api/versioning.md)
 
 ## Other Serializers and API Frameworks
 In early versions of Bullet Train we made the decision to adopt a specific serialization library, [ActiveModelSerializers](https://github.com/rails-api/active_model_serializers) and in subsequent versions we went as far as to adopt an entire third-party framework ([Grape](https://github.com/ruby-grape/grape)) and a third-party API specification ([JSON:API](https://jsonapi.org)). We now consider it out-of-scope to try and make such decisions on behalf of developers. Support for them in Bullet Train applications and in Super Scaffolding could be created by third-parties.
