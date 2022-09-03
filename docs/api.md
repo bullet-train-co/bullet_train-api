@@ -4,7 +4,7 @@ We believe every SaaS application should have an API and [webhooks](https://gith
 ## Background
 Vanilla Rails scaffolding actually provides simple API functionality out-of-the-box: You can append `.json` to the URL of any scaffold and it will render a JSON representation instead of an HTML view. This functionality continues to work in Bullet Train, but our API implementation also builds on this simple baseline using the same tools with additional organization and some new patterns. 
 
-### Separating Account and API Controllers
+## Separating Account and API Controllers
 Where vanilla Rails uses a single controller in `app/controllers` for both in-browser and API requests, Bullet Train splits these into two separate controllers, one in `app/controllers/account` and another in `app/controllers/api/v1`, although a lot of logic is shared between the two.
 
 ## Goals
