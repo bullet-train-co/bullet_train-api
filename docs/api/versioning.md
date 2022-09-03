@@ -2,7 +2,7 @@
 Bullet Train's API layer is designed to help support the need of software developers to evolve their API over time while continuing to maintain support for versions of the API that users have already built against.
 
 ## What is API versioning?
-By default, Bullet Train will build out a "V1" version of your API. The version number is intended to represent a contract with application users that as long as they're hitting "/api/v1" endpoints, the structure of URLs, requests, and responses won't change in a way that will break the integrations they've created.
+By default, Bullet Train will build out a "V1" version of your API. The version number is intended to represent a contract with your users that as long as they're hitting "/api/v1" endpoints, the structure of URLs, requests, and responses won't change in a way that will break the integrations they've created.
 
 If a change to the API would break the established contract, we want to bump the API version number so we can differentiate between developers building against the latest version of the API (e.g. "V2") and developers who wrote code against the earlier version of the API (e.g. "V1"). This allows us the opportunity to ensure that older versions of the API continue to work as previously expected by the earlier developers.
 
