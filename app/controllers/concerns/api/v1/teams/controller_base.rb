@@ -26,6 +26,7 @@ module Api::V1::Teams::ControllerBase
       collection_actions: (defined?(COLLECTION_ACTIONS) ? COLLECTION_ACTIONS : [])
 
     private
+
     include StrongParameters
   end
 

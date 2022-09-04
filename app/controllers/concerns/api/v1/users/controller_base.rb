@@ -28,6 +28,7 @@ module Api::V1::Users::ControllerBase
       collection_actions: (defined?(COLLECTION_ACTIONS) ? COLLECTION_ACTIONS : [])
 
     private
+
     include StrongParameters
   end
 
