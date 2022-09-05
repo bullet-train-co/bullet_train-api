@@ -1,5 +1,3 @@
-require "pry"
-
 namespace :bullet_train do
   namespace :api do
     task :bump_version do
