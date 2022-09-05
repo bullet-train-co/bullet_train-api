@@ -39,7 +39,7 @@ class Platform::Application < ApplicationRecord
   end
 
   def create_access_token
-    access_tokens.create(resource_owner_id: user.id, default: "Default", provisioned: true)
+    access_tokens.create(resource_owner_id: user.id, description: "Default Access Token", provisioned: true)
   end
 
   def update_user_and_membership

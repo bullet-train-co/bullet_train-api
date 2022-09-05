@@ -3,7 +3,7 @@ class Platform::AccessToken < ApplicationRecord
 
   include Doorkeeper::Orm::ActiveRecord::Mixins::AccessToken
   # 🚅 add concerns above.
-  
+
   # 🚅 add concerns above.
 
   # 🚅 add attribute accessors above.

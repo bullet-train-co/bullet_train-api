@@ -63,7 +63,7 @@ class Account::Platform::ApplicationsController < Account::ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def application_params
-    strong_params = params.require(:platform_application).permit(
+    params.require(:platform_application).permit(
       :name,
       :redirect_uri,
       # 🚅 super scaffolding will insert new fields above this line.
@@ -71,7 +71,5 @@ class Account::Platform::ApplicationsController < Account::ApplicationController
     )
 
     # 🚅 super scaffolding will insert processing for new fields above this line.
-
-    strong_params
   end
 end
