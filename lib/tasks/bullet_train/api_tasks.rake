@@ -1,5 +1,6 @@
 namespace :bullet_train do
   namespace :api do
+    desc "Bump the current version of application's API"
     task :bump_version do
       # Calculate new version.
       initializer_content = File.new("config/initializers/api.rb").readline
