@@ -38,8 +38,8 @@ namespace :bullet_train do
         end
 
         # We can't create new files unless each directory under #{api/previous_version}
-        # has been created. For example, we have to create the `projects` directory
-        # before we can create the file `api/v2/projects/pages.json.jbuilder.`
+        # has been created under the new api directory. For example, we have to create
+        # the `projects` directory before we can create the file `api/v2/projects/pages.json.jbuilder.`
         new_version_dir, dir_hierarchy = new_file_name.split(/(?<=#{new_version})\//)
         if dir_hierarchy.present? && dir_hierarchy.match?("/")
           dir_hierarchy = dir_hierarchy.split("/")
