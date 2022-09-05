@@ -29,7 +29,6 @@ namespace :bullet_train do
         previous_file_contents = File.open(file_name).readlines
         new_file_name = file_name.gsub(previous_version, new_version)
 
-        # i.e. Api::V1::ApplicationController > Api::V2::ApplicationController.
         updated_file_contents = previous_file_contents.map do |line|
           if line.match?(previous_version)
             line.gsub(previous_version, new_version)
