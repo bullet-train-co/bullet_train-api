@@ -7,9 +7,7 @@ namespace :bullet_train do
       new_version = "v#{previous_version.scan(/\d+/).pop.to_i + 1}"
 
       # Update initializer.
-      File.open("config/initializers/api.rb", "w") do |f|
-        f.write(initializer_content.gsub(previous_version, new_version))
-      end
+      File.write("config/initializers/api.rb", initializer_content.gsub(previous_version, new_version))
 
       [
         "app/controllers/api/#{new_version}",
@@ -22,8 +20,8 @@ namespace :bullet_train do
       files_to_update = [
         "config/routes/api/#{previous_version}.rb",
         Dir.glob("app/controllers/api/#{previous_version}/**/*.rb") +
-        Dir.glob("app/views/api/#{previous_version}/**/*.json.jbuilder") +
-        Dir.glob("test/controllers/api/#{previous_version}/**/*.rb")
+          Dir.glob("app/views/api/#{previous_version}/**/*.json.jbuilder") +
+          Dir.glob("test/controllers/api/#{previous_version}/**/*.rb")
       ].flatten
 
       files_to_update.each do |file_name|
@@ -50,12 +48,12 @@ namespace :bullet_train do
             break if child_dir_or_file.match?(/\./)
 
             new_hierarchy = "#{base}/#{child_dir_or_file}"
-            Dir.mkdir(new_hierarchy) unless Dir.exists?(new_hierarchy)
+            Dir.mkdir(new_hierarchy) unless Dir.exist?(new_hierarchy)
             new_hierarchy
           end
         end
         # TODO: I'd like to use Scaffolding::FileManipulator for this.
-        File.open(new_file_name, "w") {|f| f.write(updated_file_contents.join)}
+        File.write(new_file_name, updated_file_contents.join)
       end
 
       # Here we make sure config/api/#{new_version}.rb is called from within the main routes file.
@@ -69,7 +67,7 @@ namespace :bullet_train do
         end
       end
       # TODO: I'd like to use Scaffolding::FileManipulator for this.
-      File.open("config/routes.rb", "w") {|f| f.write(updated_file_contents.join)}
+      File.write("config/routes.rb", updated_file_contents.join)
 
       puts "Finished bumping to #{new_version}"
     end
