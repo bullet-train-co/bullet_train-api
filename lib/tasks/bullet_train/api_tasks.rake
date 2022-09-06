@@ -1,3 +1,6 @@
+require "scaffolding"
+require "scaffolding/file_manipulator"
+
 namespace :bullet_train do
   namespace :api do
     desc "Bump the current version of application's API"
@@ -52,8 +55,7 @@ namespace :bullet_train do
             new_hierarchy
           end
         end
-        # TODO: I'd like to use Scaffolding::FileManipulator for this.
-        File.write(new_file_name, updated_file_contents.join)
+        Scaffolding::FileManipulator.write(new_file_name, updated_file_contents)
       end
 
       # Here we make sure config/api/#{new_version}.rb is called from within the main routes file.
@@ -66,8 +68,7 @@ namespace :bullet_train do
           line
         end
       end
-      # TODO: I'd like to use Scaffolding::FileManipulator for this.
-      File.write("config/routes.rb", updated_file_contents.join)
+      Scaffolding::FileManipulator.write("config/routes.rb", updated_file_contents)
 
       puts "Finished bumping to #{new_version}"
     end
