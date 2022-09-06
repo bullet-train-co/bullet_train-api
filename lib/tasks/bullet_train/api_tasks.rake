@@ -69,37 +69,6 @@ namespace :bullet_train do
       # TODO: I'd like to use Scaffolding::FileManipulator for this.
       File.write("config/routes.rb", updated_file_contents.join)
 
-      # Prepare directories for base controllers
-      [
-        "app/controllers/concerns/api/#{new_version}/teams",
-        "app/controllers/concerns/api/#{new_version}/users"
-      ].each do |base_controller_dir|
-        base_dir, dirs_to_create = base_controller_dir.split(/(?<=concerns)\//)
-        dirs_to_create.split("/").inject(base_dir) do |base, child_dir|
-          dir_to_create = "#{base}/#{child_dir}"
-          Dir.mkdir(dir_to_create) unless Dir.exists?(dir_to_create)
-          dir_to_create
-        end
-      end
-
-      # Add base controllers to new version directory in main Bullet Train application.
-      bt_api_package = `bundle show bullet_train-api`.chomp
-      [
-        "app/controllers/concerns/api/v1/teams/controller_base.rb",
-        "app/controllers/concerns/api/v1/users/controller_base.rb"
-      ].each do |file_name|
-        previous_file_contents = File.open("#{bt_api_package}/#{file_name}").readlines
-        new_file_name = file_name.gsub(/v1/, new_version)
-        updated_file_contents = previous_file_contents.map do |line|
-          if line.match?(/v1/)
-            line.gsub(/v1/, new_version)
-          else
-            line.gsub("Api::V1", "Api::#{new_version.upcase}")
-          end
-        end
-        File.write(new_file_name, updated_file_contents.join)
-      end
-
       puts "Finished bumping to #{new_version}"
     end
   end
