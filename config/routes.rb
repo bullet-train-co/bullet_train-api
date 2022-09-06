@@ -1,7 +1,25 @@
 Rails.application.routes.draw do
   use_doorkeeper
 
+  # See `config/routes.rb` in the starter repository for details.
+  collection_actions = [:index, :new, :create] # standard:disable Lint/UselessAssignment
+  extending = {only: []}
+
+  namespace :account do
+    shallow do
+      resources :teams, extending do
+        namespace :platform do
+          resources :applications do
+            resources :access_tokens
+          end
+        end
+      end
+    end
+  end
+
   namespace :api do
+    match "*version/openapi.yaml" => "open_api#index", :via => :get
+
     namespace :v1 do
       shallow do
         resources :users
@@ -9,7 +27,9 @@ Rails.application.routes.draw do
           resources :invitations
           resources :memberships
           namespace :platform do
-            resources :applications
+            resources :applications do
+              resources :access_tokens
+            end
           end
         end
       end
