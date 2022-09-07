@@ -4,10 +4,6 @@ require "pagy_cursor/pagy/extras/uuid_cursor"
 module Api::Controllers::Base
   extend ActiveSupport::Concern
 
-  # TODO Why doesn't `before_action :doorkeeper_authorize!` throw an exception?
-  class NotAuthenticatedError < StandardError
-  end
-
   included do
     include ActionController::Helpers
     helper ApplicationHelper
@@ -20,10 +16,6 @@ module Api::Controllers::Base
 
     rescue_from CanCan::AccessDenied, ActiveRecord::RecordNotFound do |exception|
       render json: {error: "Not found"}, status: :not_found
-    end
-
-    rescue_from NotAuthenticatedError do |exception|
-      render json: {error: "Invalid token"}, status: :unauthorized
     end
 
     before_action :apply_pagination, only: [:index]
@@ -41,7 +33,7 @@ module Api::Controllers::Base
   end
 
   def current_user
-    raise NotAuthenticatedError unless doorkeeper_token.present?
+    raise Doorkeeper::Errors::InvalidToken unless doorkeeper_token.present?
     doorkeeper_token.update(last_used_at: Time.zone.now)
     @current_user ||= User.find_by(id: doorkeeper_token[:resource_owner_id])
   end
