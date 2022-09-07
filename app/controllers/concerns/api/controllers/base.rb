@@ -12,7 +12,6 @@ module Api::Controllers::Base
     include Pagy::Backend
 
     before_action :set_default_response_format
-    before_action :doorkeeper_authorize!
 
     rescue_from CanCan::AccessDenied, ActiveRecord::RecordNotFound do |exception|
       render json: {error: "Not found"}, status: :not_found
