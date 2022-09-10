@@ -41,7 +41,7 @@
                         <%= render 'shared/attributes/date_and_time', attribute: :last_used_at %>
                       <% else %>
                         <% # TODO Make it so we can just define a `default` key for `last_used_at` in the locale file and it will us that when present. %>
-                        Never
+                        <%= t('.last_used_at', time: access_token.last_used_at.present? ? access_token.created_at.strftime("%B %-d, %Y") : t('.never')) %>
                       <% end %>
                     </td>
                     <%# 🚅 super scaffolding will insert new fields above this line. %>
