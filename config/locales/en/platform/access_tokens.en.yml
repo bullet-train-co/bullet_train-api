@@ -69,8 +69,6 @@ en:
           description: You can use Access Tokens to allow %{application_name} to make requests to the API.
       fields: *fields
       buttons: *buttons
-      last_used_at: "%{time}"
-      never: Never
     show:
       section: "%{access_token_name}"
       header: Access Token Details
