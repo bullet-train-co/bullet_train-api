@@ -39,9 +39,9 @@ module OpenApiHelper
     type = attribute_data.nil? ? "string" : attribute_data.type
 
     attribute_block = <<~YAML
-    #{attribute}:
-      description: "#{heading}"
-      type: #{type}
+      #{attribute}:
+        description: "#{heading}"
+        type: #{type}
     YAML
     indent(attribute_block.chomp, 2)
   end
