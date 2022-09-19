@@ -3,7 +3,7 @@ module Api::V1::Teams::ControllerBase
 
   module StrongParameters
     # Only allow a list of trusted parameters through.
-    def team_params
+    def self.team_params(params, permitted_fields, permitted_arrays)
       strong_params = params.require(:team).permit(
         *permitted_fields,
         :name,
@@ -14,7 +14,7 @@ module Api::V1::Teams::ControllerBase
         # 🚅 super scaffolding will insert new arrays above this line.
       )
 
-      process_params(strong_params)
+      Account::TeamsController.process_params(strong_params)
 
       strong_params
     end
@@ -40,7 +40,7 @@ module Api::V1::Teams::ControllerBase
 
   # PATCH/PUT /api/v1/teams/:id
   def update
-    if @team.update(team_params)
+    if @team.update(StrongParameters.team_params(params, permitted_fields, permitted_arrays))
       render :show
     else
       render json: @team.errors, status: :unprocessable_entity

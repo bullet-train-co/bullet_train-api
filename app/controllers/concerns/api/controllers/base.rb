@@ -67,4 +67,11 @@ module Api::Controllers::Base
       /^#{name.split("::").first(2).join("::") + "::"}/
     end
   end
+
+  # TODO: Duplicate of method in bullet_train-base's Account::Controller::Base.
+  def strong_parameters_from_api
+    api_module = (self.class.to_s.gsub(/^Account::/, "Api::#{BulletTrain::Api.current_version.upcase}::") + "::StrongParameters").constantize
+    params_method = params["controller"].split("/").last.singularize + "_params"
+    api_module.send(params_method.to_sym, params, permitted_fields, permitted_arrays)
+  end
 end
