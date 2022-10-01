@@ -4,13 +4,25 @@ module Api::V1::Users::ControllerBase
   module StrongParameters
     # Only allow a list of trusted parameters through.
     def user_params
+      general_fields = if params["commit"] == "Update Password"
+        [
+          :password,
+          :current_password,
+          :password_confirmation
+        ]
+      else
+        [
+          :email,
+          :first_name,
+          :last_name,
+          :time_zone,
+          :locale
+        ]
+      end
+
       strong_params = params.require(:user).permit(
         *permitted_fields,
-        :email,
-        :first_name,
-        :last_name,
-        :time_zone,
-        :locale,
+        *general_fields,
         # 🚅 super scaffolding will insert new fields above this line.
         *permitted_arrays,
         # 🚅 super scaffolding will insert new arrays above this line.
