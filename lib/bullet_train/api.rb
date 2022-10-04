@@ -11,5 +11,6 @@ module BulletTrain
   module Api
     mattr_accessor :endpoints, default: []
     mattr_accessor :current_version, default: "v1"
+    mattr_accessor :current_version_number, default: 1
   end
 end
