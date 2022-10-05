@@ -67,7 +67,9 @@ class Account::Platform::AccessTokensController < Account::ApplicationController
 
   private
 
-  include strong_parameters_from_api
+  if defined?(Api::V1::ApplicationController)
+    include strong_parameters_from_api
+  end
 
   def process_params(strong_params)
     assign_date_and_time(strong_params, :last_used_at)
