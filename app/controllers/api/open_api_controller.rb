@@ -63,7 +63,7 @@ module OpenApiHelper
     ).html_safe
   end
 
-  def custom_paths_for(model)
+  def paths_for(model)
     for_model model do
       indent(render("api/#{@version}/open_api/#{model.name.underscore.pluralize}/paths"), 1)
     end
