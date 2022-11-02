@@ -13,6 +13,7 @@ module Api::Controllers::Base
     helper ApplicationHelper
 
     include LoadsAndAuthorizesResource
+    include Fields::ControllerSupport
     include Pagy::Backend
 
     before_action :set_default_response_format
