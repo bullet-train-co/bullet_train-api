@@ -68,7 +68,11 @@ module Api::Controllers::Base
     raise NotAuthenticatedError unless doorkeeper_token.present?
     # TODO Remove this rescue once workspace clusters can write to this column on the identity server.
     # TODO Make this logic configurable so that downstream developers can write different methods for this column getting updated.
-    doorkeeper_token.update(last_used_at: Time.zone.now) rescue ActiveRecord::StatementInvalid
+    begin
+      doorkeeper_token.update(last_used_at: Time.zone.now)
+    rescue
+      ActiveRecord::StatementInvalid
+    end
     @current_user ||= User.find_by(id: doorkeeper_token[:resource_owner_id])
   end
 
