@@ -2,9 +2,7 @@ namespace :bullet_train do
   namespace :api do
     desc "Registers your production API documentation to Redocly"
     task :push_to_redocly do
-      unless Rails.env.production?
-        puts "This task is only available for applications in production.".red
-      else
+      if Rails.env.production?
         if !ENV["BASE_URL"].present?
           raise "Your BASE_URL must be set before pushing documentation to Redocly."
         elsif !ENV["REDOCLY_AUTHORIZATION"].present?
@@ -19,7 +17,7 @@ namespace :bullet_train do
           puts "https://redocly.com/docs/cli/commands/push/#organization-id"
           puts ""
 
-          organization_id = STDIN.gets.chomp
+          organization_id = $stdin.gets.chomp
           puts ""
 
           puts "Please tell us your file name.".blue
@@ -28,7 +26,7 @@ namespace :bullet_train do
           puts "https://redocly.com/docs/cli/commands/push/#api-name"
           puts ""
 
-          file_name = STDIN.gets.chomp
+          file_name = $stdin.gets.chomp
           puts ""
 
           # Validate the file's contents before downloading it.
@@ -43,6 +41,8 @@ namespace :bullet_train do
           # Clean up
           `rm openapi.yaml`
         end
+      else
+        puts "This task is only available for applications in production.".red
       end
     end
   end
