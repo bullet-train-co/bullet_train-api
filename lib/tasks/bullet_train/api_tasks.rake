@@ -11,23 +11,31 @@ namespace :bullet_train do
           puts "Before starting, make sure you have already created an API with the base documentation in Redocly's API Registry"
           puts ""
 
-          puts "Please tell us your organization id.".blue
-          puts "i.e. your-test-app"
-          puts "If you're unsure what this value is, please look at these steps in the documentation:"
-          puts "https://redocly.com/docs/cli/commands/push/#organization-id"
-          puts ""
+          # Grab the organization id and/or file name if provided in parameters.
+          ARGV.shift
+          api_option = ARGV.shift
 
-          organization_id = $stdin.gets.chomp
-          puts ""
+          if api_option.nil? && !(File.exist?(".redocly.yaml") || File.exist?("redocly.yaml"))
+            puts "Please tell us your organization id.".blue
+            puts "i.e. your-test-app"
+            puts "If you're unsure what this value is, please look at these steps in the documentation:"
+            puts "https://redocly.com/docs/cli/commands/push/#organization-id"
+            puts ""
 
-          puts "Please tell us your file name.".blue
-          puts "i.e. core@v1"
-          puts "If you're unsure what this value is, please look at these steps in the documentation:"
-          puts "https://redocly.com/docs/cli/commands/push/#api-name"
-          puts ""
+            organization_id = $stdin.gets.chomp
+            puts ""
 
-          file_name = $stdin.gets.chomp
-          puts ""
+            puts "Please tell us your file name.".blue
+            puts "i.e. core@v1"
+            puts "If you're unsure what this value is, please look at these steps in the documentation:"
+            puts "https://redocly.com/docs/cli/commands/push/#api-name"
+            puts ""
+
+            file_name = $stdin.gets.chomp
+            puts ""
+
+            api_option = "@#{organization_id}/#{file_name}"
+          end
 
           # Validate the file's contents before downloading it.
           `yarn exec redocly lint #{ENV["BASE_URL"]}/api/v1/openapi.yaml`
@@ -36,7 +44,7 @@ namespace :bullet_train do
           `curl #{ENV["BASE_URL"]}/api/v1/openapi.yaml -o openapi.yaml`
 
           # Push to Redocly
-          `REDOCLY_AUTHORIZATION=#{ENV["REDOCLY_AUTHORIZATION"]} yarn exec redocly push openapi.yaml @#{organization_id}/#{file_name}`
+          `REDOCLY_AUTHORIZATION=#{ENV["REDOCLY_AUTHORIZATION"]} yarn exec redocly push openapi.yaml #{api_option}`
 
           # Clean up
           `rm openapi.yaml`
