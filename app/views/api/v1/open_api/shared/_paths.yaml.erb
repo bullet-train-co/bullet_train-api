@@ -13,22 +13,23 @@
         required: true
         schema:
           type: string
+      - $ref: "#/components/parameters/after"
     responses:
       "404":
         description: "Not Found"
       "200":
         description: "OK"
+        headers:
+          Pagination-Next:
+            $ref: "#/components/headers/PaginationNext"
+          Link:
+            $ref: "#/components/headers/Link"
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                data:
-                  type: array
-                  items:
-                    $ref: "#/components/schemas/ScaffoldingCompletelyConcreteTangibleThingAttributes"
-                has_more:
-                  type: boolean
+              type: array
+              items:
+                $ref: "#/components/schemas/ScaffoldingCompletelyConcreteTangibleThingAttributes"
   <% end %>
   <% unless except.include?(:create) %>
   post:
@@ -124,7 +125,7 @@
     responses:
       "404":
         description: "Not Found"
-      "200":
-        description: "OK"
+      "204":
+        description: "No Content"
   <% end %>
 <% end %>
