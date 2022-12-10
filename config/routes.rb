@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get "/testing/provision", to: "account/platform/applications#provision"
+
   namespace :api do
     match "*version/openapi.yaml" => "open_api#index", :via => :get
 
