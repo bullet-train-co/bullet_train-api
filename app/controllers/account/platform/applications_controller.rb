@@ -28,7 +28,7 @@ class Account::Platform::ApplicationsController < Account::ApplicationController
 
       if test_application.save
         access_token = test_application.create_access_token
-        render json: {message: I18n.t("platform/applications.notifications.test_application_created"), team_id: provision_team.id, access_token: access_token}
+        render json: {message: I18n.t("platform/applications.notifications.test_application_created"), team_id: provision_team.id, access_token: access_token.token}
       else
         render json: {errors: test_application.errors, status: :unprocessable_entity}
       end
