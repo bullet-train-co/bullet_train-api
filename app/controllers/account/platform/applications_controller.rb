@@ -23,7 +23,8 @@ class Account::Platform::ApplicationsController < Account::ApplicationController
 
   def provision
     if ENV["TESTING_PROVISION_KEY"].present? && params[:key] == ENV["TESTING_PROVISION_KEY"]
-      provision_team = current_user.teams.create(name: "provision-team-#{SecureRandom.hex}", time_zone: current_user.time_zone)
+      user = User.create(email: "test@#{SecureRandom.hex}.example.com", password: (password = SecureRandom.hex), password_confirmation: password)
+      provision_team = current_user.teams.create(name: "provision-team-#{SecureRandom.hex}", time_zone: user.time_zone)
       test_application = Platform::Application.new(name: "test-application-#{SecureRandom.hex}", team: provision_team)
 
       if test_application.save
