@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   # spec.metadata["changelog_uri"] = "TODO: Put your gem's CHANGELOG.md URL here."
 
   spec.files = Dir.chdir(File.expand_path(__dir__)) do
-    Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md", ".bt-link"]
+    Dir["{app,config,db,lib,docs}/**/*", "MIT-LICENSE", "Rakefile", "README.md", ".bt-link"]
   end
 
   spec.add_development_dependency "standard"
@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "pagy_cursor"
   spec.add_dependency "rack-cors"
   spec.add_dependency "doorkeeper"
+  spec.add_dependency "jbuilder-schema", ">= 2.0.0"
 
   spec.add_dependency "bullet_train"
 end
